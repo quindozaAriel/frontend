@@ -59,6 +59,7 @@
             <button class="btn btn-danger" @click="removeUserDetail">
               Remove state
             </button>
+            <b-button>asdads</b-button>
           </div>
         </div>
       </div>
@@ -85,7 +86,7 @@ export default {
     submitForm: function (e) {
       axios({
         method: "post",
-        url: "http://192.168.1.2/backend/public/api/auth/login",
+        url: "http://10.164.58.130/backend/public/api/auth/login",
         data: {
           email: this.emailInput,
           password: this.passwordInput,
@@ -97,14 +98,8 @@ export default {
       })
         .then((response) => {
           if (response.error != "Unauthorized") {
-            var session_data = {
-              "user_id":response.data["user_details"]["id"],
-              "user_name":response.data["user_details"]["name"],
-              "jwt_token":response.data["jwt"]["original"]["access_token"],
-              "jwt_exp":response.data["jwt"]["original"]["expires_in"],
-              "jwt_type":response.data["jwt"]["original"]["token_type"],
-            }
-             this.setUserDetail(session_data)
+          
+             this.setUserDetail(response.data)
              this.$router.push('/home')
           } else {
             alert("not login");
